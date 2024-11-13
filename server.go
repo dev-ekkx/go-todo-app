@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/dev-ekks/go-todo-app/mongo-config"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 	"os"
 
 	"github.com/99designs/gqlgen/graphql/handler"
@@ -25,8 +25,11 @@ func main() {
 		port = defaultPort
 	}
 	e := echo.New()
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	//e.Use(middleware.Logger())
+	//e.Use(middleware.Recover())
+
+	//Connect Mongo DB
+	mongoController.ConnectDb()
 
 	//srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 
