@@ -5,6 +5,7 @@ import (
 	"github.com/dev-ekks/go-todo-app/mongo-config"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"os"
 
 	"github.com/99designs/gqlgen/graphql/handler"
@@ -25,6 +26,11 @@ func main() {
 		port = defaultPort
 	}
 	e := echo.New()
+
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
 	//e.Use(middleware.Logger())
 	//e.Use(middleware.Recover())
 

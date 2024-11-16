@@ -66,11 +66,10 @@ func GetAllTodos() ([]*model.Todo, error) {
 	defer func(cur *mongo.Cursor, ctx context.Context) {
 		err := cur.Close(ctx)
 		if err != nil {
-
+			log.Fatal(err)
 		}
 	}(cur, context.Background())
 	return todos, nil
-
 }
 
 func CreateTodo(input model.NewTodo) (*model.Todo, error) {
@@ -83,8 +82,6 @@ func CreateTodo(input model.NewTodo) (*model.Todo, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println(result.InsertedID)
 
 	newTodo.ID = result.InsertedID.(primitive.ObjectID)
 	createdTodo := model.Todo{
